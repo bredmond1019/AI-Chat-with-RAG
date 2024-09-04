@@ -5,7 +5,6 @@ use ollama_rs::{
     Ollama,
 };
 use pyo3::prelude::*;
-use pyo3::types::IntoPyDict;
 use std::error::Error as StdError;
 use std::fmt;
 use std::pin::Pin;
