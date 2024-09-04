@@ -9,7 +9,7 @@ mod models;
 mod routes;
 mod services;
 
-use services::chat_server::ChatServer;
+use services::{ai_model::AIModel, chat_server::ChatServer};
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -22,11 +22,14 @@ async fn main() -> std::io::Result<()> {
     let chat_server = ChatServer::new().start();
     info!("ChatServer initialized and started");
 
+    let ai_model = Data::new(AIModel::new().expect("Failed to initialize AI Model"));
+
     info!("Starting server at http://localhost:8080");
     HttpServer::new(move || {
         info!("Configuring new worker");
         App::new()
             .app_data(Data::new(chat_server.clone()))
+            .app_data(ai_model.clone())
             .wrap(Logger::default())
             .wrap(Cors::permissive())
             .configure(routes::init_routes)

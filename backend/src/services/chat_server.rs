@@ -17,7 +17,7 @@ impl ChatServer {
     pub fn new() -> Self {
         Self {
             sessions: HashMap::new(),
-            ai_model: AIModel::new(),
+            ai_model: AIModel::new().expect("Failed to initialize AI Model"),
         }
     }
 }

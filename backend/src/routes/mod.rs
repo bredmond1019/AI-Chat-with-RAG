@@ -1,5 +1,6 @@
 use actix_web::web;
 
+mod python_app;
 mod ws;
 
 pub fn init_routes(cfg: &mut web::ServiceConfig) {
